@@ -38,8 +38,6 @@ namespace App.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Books");
                 });
 
@@ -56,20 +54,6 @@ namespace App.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("App.Models.Book", b =>
-                {
-                    b.HasOne("App.Models.Category", null)
-                        .WithMany("Books")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("App.Models.Category", b =>
-                {
-                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }
