@@ -1,21 +1,45 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using App.Models;
+using App.Data;
+using Microsoft.EntityFrameworkCore;
+using App.ViewModels;
 
 namespace App.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly AppDbContext _appDbContext;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, AppDbContext appDbContext)
     {
         _logger = logger;
+        _appDbContext = appDbContext;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> IndexAsync()
     {
-        return View();
+        var categories = await _appDbContext.Categories
+            .ToListAsync();
+
+        var books = await _appDbContext.Books
+            .ToListAsync();
+
+        var viewModel = categories.GroupJoin(
+            books,
+            category => category.Id,
+            book => book.CategoryId,
+            (category, books) => new CategoryViewModel
+            {
+                CategoryId = category.Id,
+                CategoryName = category.Name,
+                BookCount = books.Count(),
+                AverageBookNumberOfPages = books.Average(x => x.NumberOfPages)                
+            }
+        );    
+
+        return View(viewModel);
     }
 
     public IActionResult Privacy()

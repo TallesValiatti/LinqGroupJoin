@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230725025517_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230731185954_firstMigration")]
+    partial class firstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,13 +63,11 @@ namespace App.Migrations
 
             modelBuilder.Entity("App.Models.Book", b =>
                 {
-                    b.HasOne("App.Models.Category", "Category")
+                    b.HasOne("App.Models.Category", null)
                         .WithMany("Books")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("App.Models.Category", b =>

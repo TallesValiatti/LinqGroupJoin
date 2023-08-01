@@ -60,13 +60,11 @@ namespace App.Migrations
 
             modelBuilder.Entity("App.Models.Book", b =>
                 {
-                    b.HasOne("App.Models.Category", "Category")
+                    b.HasOne("App.Models.Category", null)
                         .WithMany("Books")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("App.Models.Category", b =>

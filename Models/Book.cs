@@ -6,7 +6,6 @@ public class Book
     public string Name { get; private set; }
     public int NumberOfPages { get; private set; }
     public DateTime ReleaseDate { get; private set; }
-    public Category Category { get; private set; } = default!;
     
     public Book(int id, int categoryId , string name, int numberOfPages, DateTime releaseDate)
     {

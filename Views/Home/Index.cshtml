@@ -1,8 +1,39 @@
-﻿@{
+﻿@using App.ViewModels
+@model IEnumerable<CategoryViewModel> 
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <p>Categories</p>
+
+    @foreach(var category in Model)
+    {
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <th class="w-50">Item</th>
+                    <th class="w-50">Value</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Category Id</td>
+                        <td>@category.CategoryId</td>
+                    </tr>
+                    <tr>
+                        <td>Category Name</td>
+                        <td>@category.CategoryName</td>
+                    </tr>
+                    <tr>
+                        <td>Book Count</td>
+                        <td>@category.BookCount</td>
+                    </tr>
+                    <tr>
+                        <td>Average Number of Pages</td>
+                        <td>@category.AverageBookNumberOfPages</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
 </div>
